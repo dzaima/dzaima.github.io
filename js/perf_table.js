@@ -1,21 +1,26 @@
 let g1 = (a) => {
-  let [m0,M0,t,tc,tr] = a;
+  let [m0,M0,t,tc,tr,...other] = a;
   let r = '<style>.coltb td{width:1.5em;height:1.5em;text-align:center} .coltb{border-spacing:0}</style>';
   let p = n => Math.log(n);
   let pi = n => Math.exp(n);
   let m = p(m0);
   let M = p(M0);
   let Mm = M-m;
-
+  let factor = other.length && other[0]=='fac';
   let fts = (ts,n) => {
     let fx = (x) => x.toFixed(Math.max(0,n-x.toFixed(0).length));
+    if (factor) return fx(ts,2)+'x';
+    if (ts==0) return '—';
     return ts<1e-6? fx(ts*1e9)+'ns': ts<1e-3?fx(ts*1e6)+'us':ts<1?fx(ts*1e3)+'ms':fx(ts)+'s';
   }
 
   let fcol = (ts,st="") => {
       let f = (p(ts)-m)/Mm;
+      if (ts==0) return '';
+      if (factor) f = 1-f;
+      if(f <= 0.001) f = 0.001;
+      if(f >= 0.999) f = 0.999;
       f = 0.35+0.65*f;
-      if(f<0)f=0; if(f>=0.99)f=0.99;
       f = f*3;
       let f0 = f%1; let f1 = 1-f0;
       let col;
