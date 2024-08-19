@@ -11,7 +11,11 @@ let g1 = (a) => {
     let fx = (x) => x.toFixed(Math.max(0,n-x.toFixed(0).length));
     if (factor) return fx(ts,2)+'x';
     if (ts==0) return '—';
-    return ts<1e-6? fx(ts*1e9)+'ns': ts<1e-3?fx(ts*1e6)+'us':ts<1?fx(ts*1e3)+'ms':fx(ts)+'s';
+    return ts<1e-9? fx(ts*1e12)+'ps'
+         : ts<1e-6? fx(ts*1e9)+'ns'
+         : ts<1e-3? fx(ts*1e6)+'us'
+         : ts<1?    fx(ts*1e3)+'ms'
+         : fx(ts)+'s';
   }
 
   let fcol = (ts,st="") => {
