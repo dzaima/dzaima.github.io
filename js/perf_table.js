@@ -47,7 +47,7 @@ let g1 = (a) => {
     r+= '<tr><td>'+tc[y]+'</td>';
     for (let x = 0; x < c.length; x++) {
       let ts = c[x];
-      if (window.timeInCells) r+= '<td '+fcol(ts,"width:3.3em")+'>'+fts(ts,2)+'</td>';
+      if (window.timeInCells) r+= '<td '+fcol(ts,"width:3.3em")+'>'+fts(ts,window.cellDigits||2)+'</td>';
       else r+= '<td '+fcol(ts)+'></td>';
     }
     r+= '</tr>';
